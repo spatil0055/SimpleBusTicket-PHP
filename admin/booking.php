@@ -366,25 +366,41 @@
                 </div>
             </section>
             <?php } ?> 
+
             <?php
-    
-    $viewDataSql = "SELECT * FROM booking_details";
-    $viewDataResult = mysqli_query($conn, $viewDataSql);
 
-    
-    if (mysqli_num_rows($viewDataResult) > 0) {
-        // Output data of each row
+    $viewDataQuery = "SELECT * FROM booking_details";
+    $viewDataResult = mysqli_query($conn, $viewDataQuery);
 
+  
+    if(mysqli_num_rows($viewDataResult) > 0) {
+        echo '<table class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Bokking ID</th>
+                        <th>Customer name</th>
+                        <th>Booked Seat</th>
+                        <th>Amount</th>
+                        
+                        
+                    </tr>
+                </thead>
+                <tbody>';
         while($row = mysqli_fetch_assoc($viewDataResult)) {
-            
-            echo "booking id: " . $row["booking_id"]. " - Customer name: " . $row["customer_name"]. "<br>";
-            // You can display more fields as needed
-            
+            echo '<tr>';
+            echo '<td>' . $row['booking_id'] . '</td>';
+            echo '<td>' . $row['customer_name'] . '</td>';
+            echo '<td>' . $row['booked_seat'] . '</td>';
+            echo '<td>' . $row['booked_amount'] . '</td>';
+          
+            echo '</tr>';
         }
+        echo '</tbody></table>';
     } else {
-        echo "0 results";
+        echo 'No data found in the view.';
     }
 ?>
+
         </div>
     </main>
     <!-- Requiring _getJSON.php-->
